@@ -4,7 +4,14 @@ import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
-dotenv.config({ path: "./.env" });
+import path from "path";
+dotenv.config({ path: path.resolve(process.cwd(), ".env") });
+
+
+console.log("Banco:", process.env.DB_NAME);
+console.log("Usuário:", process.env.DB_USER);
+console.log("Senha:", process.env.DB_PASS);
+
 
 // Corrige __dirname para ambientes ESM
 const __filename = fileURLToPath(import.meta.url);
