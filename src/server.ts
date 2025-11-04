@@ -1,6 +1,6 @@
 import express from 'express';
-import { AppDataSource } from './database';
-import alunoRoutes from './routes/alunoRoutes';
+import { AppDataSource } from './database.js';
+import alunoRoutes from './routes/AlunoRoutes.js';
 
 const app = express();
 app.use(express.json());

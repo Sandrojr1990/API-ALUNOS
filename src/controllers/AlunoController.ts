@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../database";
-import { Aluno } from "../entity/Aluno";
+import { AppDataSource } from "../database.js";
+import { Aluno } from "../entity/Aluno.js";
 
 const repo = AppDataSource.getRepository(Aluno);
 
 export class AlunoController {
+
+    // criar novo aluno
+    
     async criar(req: Request, res: Response) {
         const aluno = repo.create(req.body);
         const resultado = await repo.save(aluno);
