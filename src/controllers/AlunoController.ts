@@ -23,7 +23,8 @@ export class AlunoController {
 
     async atualizar(req: Request, res: Response) {
         const id = Number(req.params.id);
-        await repo.delete(id);
+        const dadosAtualizados = req.body;
+        await repo.update(id, dadosAtualizados);
         return res.json({ mensagem: "Aluno atualizado com sucesso!" });
 
     }
