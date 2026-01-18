@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../database.js";
-import { Aluno } from "../entity/Aluno.js";
+import { Aluno } from "../entities/Aluno.js";
 
 const repo = AppDataSource.getRepository(Aluno);
 
