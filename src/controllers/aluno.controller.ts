@@ -9,14 +9,14 @@ export class AlunoController {
     // criar novo aluno
     
     async criar(req: Request, res: Response) {
-        const aluno = repo.create(req.body);
-        const resultado = await repo.save(aluno);
-        return res.status(201).json(resultado);
+        const aluno = AppDataSource.getRepository(Aluno).create(req.body);
+        await AppDataSource.getRepository(Aluno).save(aluno);
+        return res.status(201).json(aluno);
 
     }
 
     async listar(req: Request, res: Response) {
-        const alunos = await repo.find();
+        const alunos = await AppDataSource.getRepository(Aluno).find();
         return res.json(alunos);
 
     }

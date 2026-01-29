@@ -9,7 +9,7 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 console.log("Banco:", process.env.DB_NAME);
 console.log("Usuário:", process.env.DB_USER);
-console.log("Senha:", process.env.DB_PASS);
+console.log("Senha:", process.env.DB_PASSWORD);
 
 // Corrige __dirname para ambientes ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER,
-  password: String(process.env.DB_PASS),
+  password: String(process.env.DB_PASSWORD),
   database: process.env.DB_NAME,
   synchronize: true,
   entities: [join(__dirname, "/entities/*.js")],

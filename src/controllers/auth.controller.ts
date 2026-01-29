@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../database";
-import { Usuario } from "../entities/Usuario";
+import { AppDataSource } from "../database.js";
+import { Usuario } from "../entities/Usuario.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -11,8 +11,8 @@ export class AuthController {
 
     const repo = AppDataSource.getRepository(Usuario);
 
-    const usuarioExiste = await repo.findOne({ where: { email } });
-    if (usuarioExiste) {
+    const existe = await repo.findOneBy({ email });
+    if (existe) {
       return res.status(400).json({ mensagem: "Email já cadastrado" });
     }
 
@@ -35,7 +35,7 @@ export class AuthController {
     const { email, senha } = req.body;
 
     const repo = AppDataSource.getRepository(Usuario);
-    const usuario = await repo.findOne({ where: { email } });
+    const usuario = await repo.findOneBy({ email });
 
     if (!usuario) {
       return res.status(401).json({ mensagem: "Credenciais inválidas" });
@@ -49,7 +49,7 @@ export class AuthController {
 
     const token = jwt.sign(
       { id: usuario.id, email: usuario.email },
-      process.env.JWT_SECRET as string,
+      process.env.JWT_SECRET!,
       { expiresIn: "1d" }
     );
 

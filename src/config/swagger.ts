@@ -1,6 +1,10 @@
-import { Options } from "swagger-jsdoc";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-export const swaggerConfig: Options = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export const swaggerConfig = {
   definition: {
     openapi: "3.0.0",
     info: {
@@ -38,4 +42,5 @@ export const swaggerConfig: Options = {
       },
     },
   },
+  apis: [`${__dirname}/../routes/*.ts`, `${__dirname}/../routes/*.js`],
 };

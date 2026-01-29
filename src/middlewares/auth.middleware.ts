@@ -1,17 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface TokenPayload {
   id: number;
   email: string;
-}
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: TokenPayload;
-    }
-  }
 }
 
 export function authMiddleware(
@@ -28,14 +23,12 @@ export function authMiddleware(
   const [, token] = authHeader.split(" ");
 
   try {
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string,
-    ) as TokenPayload;
-
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as TokenPayload;
     req.user = decoded;
-    return next();
+    next();
   } catch {
     return res.status(401).json({ mensagem: "Token inválido" });
+
   }
+
 }
